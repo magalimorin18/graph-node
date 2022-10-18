@@ -1,0 +1,27 @@
+specVersion: 0.0.1
+description:
+repository: https://github.com/magalimorin18/graph-node-UP
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: LSP3Account
+    network: 2828
+    source:
+      address: "0xcDB6063D48BFe7945aFf9048275b7FFF6FBD113e"
+      abi: LSP3Account
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        -
+      abis:
+        - name: LSP3Account
+          file: ./abis/LSP3Account.json
+      eventHandlers:
+        - event:
+          handler:
+        - event:
+          handler:
+      file: ./src/mapping.ts
