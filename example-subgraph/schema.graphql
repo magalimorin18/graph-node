@@ -1,0 +1,6 @@
+type UP @entity {
+  key: bytes32
+  value: bytes
+}
+
+# Can we specify that key is indexed ?
