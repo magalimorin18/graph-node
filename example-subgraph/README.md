@@ -29,6 +29,14 @@ File `schema.graphql` specifies the entities we store in the subgraph.
 File `mapping.ts` specifies the functions to run when a specific event is emitted. The functions store the pieces of information we want in the database of the graph.
 
 ## Next Steps :
-- Extract data from dataValue : the 64 last bytes of dataValue represents the url link to the json file with all data. We have to transfor it from Hex to UTF8 => extract json from url www.ipfs.up.com => parse the json file. These steps will be done in the function handleUpdatedUP in the mapping.ts file.
 
-- Undestand why there is an error when running yarn codegen.
+- Replace abi and smart contract with the ones of my address => Blocker : to access those files I need to connect to l16 block scout but the website has an internal server error
+
+- Debug yarn codegen command in order to generate the following files
+
+```
+import { DataChanged } from "../generated/UP/UP";
+import { Data } from "../generated/UP";
+```
+
+- Test function `fetchJson`
