@@ -1,6 +1,6 @@
-type UP @entity {
-  key: bytes32
-  value: bytes
+type Data @entity {
+  name: String
+  description: String
+  tags: Array
+  profileImage: Array
 }
-
-# Can we specify that key is indexed ?
