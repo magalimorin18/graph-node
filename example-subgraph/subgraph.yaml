@@ -1,27 +1,26 @@
-specVersion: 0.0.1
-description:
+specVersion: 0.0.4
+description: index information on UP
 repository: https://github.com/magalimorin18/graph-node-UP
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: LSP3Account
-    network: 2828
+    name: UniversalProfile
+    # Question : does the name of the contract matter ?
+    network: "2828:https://rpc.l16.lukso.network"
     source:
-      address: "0xcDB6063D48BFe7945aFf9048275b7FFF6FBD113e"
-      abi: LSP3Account
+      address: "0x41D0ADD4e04fd73598244cab0090E7D8042597f9"
+      abi: UniversalProfile
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        -
+        - UP
       abis:
-        - name: LSP3Account
-          file: ./abis/LSP3Account.json
+        - name: UniversalProfile
+          file: ./abis/UniversalProfile.json
       eventHandlers:
-        - event:
-          handler:
-        - event:
-          handler:
+        - name: DataChanged(bytes32, bytes);
+          handler: handleUpdatedUP
       file: ./src/mapping.ts

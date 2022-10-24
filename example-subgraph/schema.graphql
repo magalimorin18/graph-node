@@ -1,0 +1,6 @@
+type Data @entity {
+  name: String
+  description: String
+  tags: Array
+  profileImage: Array
+}
