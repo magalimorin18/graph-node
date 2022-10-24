@@ -48,7 +48,7 @@ This command throw an error that I have not been able to debug yet.
 
 - Replace abi and smart contract with the ones of my address
 
-##### => Blocker : could not access to l16 website because of an internal server error
+##### => Blocker : could not access to l16 website because of an internal server error. 
 
 - Debug `yarn codegen` command in order to generate the import `DataChanged` and `Data` to `mapping.ts` file inside folder `/example-subgraph/src`
 
@@ -61,4 +61,4 @@ This command throw an error that I have not been able to debug yet.
 
 - Test function `fetchJson`
 
-##### => Blocker : tried testing the function in a typescript console but couldn't import web3
+##### => Blocker : tried testing the function in a typescript console or in the browser console but couldn't import web3. Need to find a new way to test the function.
