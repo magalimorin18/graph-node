@@ -4,7 +4,7 @@
 
 # Getting Started
 
-To understand what is The Graph and how we can use it to extract information of ERC725 account, read the `Investigation.md` file in the `docs` folder.
+Read `Investigation.md` file in the `docs` folder to have more information on The Graph.R
 
 ## Installation
 
@@ -61,23 +61,19 @@ graph create --node http://127.0.0.1:8020 example
 ### Understand the purpose of each file
 
 File `subgraph.yaml` (the subgraph manifest) specifies information on the Smart Contract we are indexing, the events that are emitted by the smart contract and the network we are connecting to.
-In our case, we are indexing the smart contract :
-
-    - event: DataChanged(indexed bytes32,bytes)
-          handler: handleUpdatedUP
 
 File `schema.graphql` specifies the entities we store in the subgraph.
 
-File `mapping.ts` specifies the functions to run when a specific event is emitted. The functions store the pieces of information we want in the database of the graph.
+File `mapping.ts` specifies the functions to run when a specific event is emitted. The functions store the pieces of information we want in the database of the suibgraph.
 
 ### Example
 
 1. An event `DataChanged` is emitted by the smart contract `0x41D0ADD4e04fd73598244cab0090E7D8042597f9`.
 
 2. The function `handleUpdatedUP` is triggered.
-   The parameters is the `dataKey` of LSP3Profile data and the dataValue. dataValue could be use to decode the data but we are using erc725js library instead.
-   `fetchData` function withdraws the UP data from ipfs.
-   The function checkes if data with the id `dataKey` already exists. If no, it creates a new entity Data with a dataKey id. If yes, it updates its values.
+   The parameter is `dataKey` and `dataValue`. dataValue could be use to decode the data but we are using erc725js library instead.
+   We use `fetchData` function from erc725js library to decode data send by the emitted event.
+   Then, `handleUpdated` checkes if a data entity with the id `dataKey` already exists. If not, it creates a new entity Data, if yes, it updates it.
    Finally, the function saves the entity.
 
 ## Improvement
@@ -101,24 +97,20 @@ PGDATA: "/data/postgres"
 (26.10.2022)
 
 1. The Graph is not supporting external libraries like web3 or erc725js yet.
-   In mapping.ts we use the libraries to extract teh information on ERC725 account. Without these libraries we can t decode the event sent by the smart contract.
+   In mapping.ts we use the libraries to extract information of ERC725 account. Without these libraries we can t decode the event emitted by the smart contract.
    ![importlibraries](docs/pictures/importlibraries.png)
 
-2) A subgraph is listening to the event emitted by a smart contract. In our case, it would mean we would have one subgraph for each universal profile.
+2) A subgraph can listen to one smart contract. In our case, it means we would have one subgraph for each universal profile which is not relevant.
 
 ## Helpers
 
-- Issue with connecting the subgraph to the graph node : display the logs of the container
+- If issue when connecting the subgraph to the graph node : display the logs of the container
 
 ```
 docker logs --follow CONTAINER
 ```
 
-- Issue with building the subgraph when running `yarn create-local`: build step by step the mapping.ts file to understand at which line the issue is.
-
-```
-yarn build
-```
+- If issue when running `yarn create-local`: build step by step the mapping.ts file to understand where the issue comes from and try `yarn build` at each step.
 
 ## Resources :
 
