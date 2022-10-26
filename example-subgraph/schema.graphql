@@ -1,6 +1,6 @@
 type Data @entity {
+  id: ID!
   name: String
   description: String
-  tags: Array
-  profileImage: Array
+  tags: [String!]
 }

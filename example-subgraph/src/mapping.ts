@@ -1,9 +1,8 @@
 import utils from "web3-utils";
 import fetch from "node-fetch";
 
-// TODO : yarn codegen command should generate these two files
-import { DataChanged } from "../generated/UP/UP";
-import { Data } from "../generated/UP";
+import { DataChanged } from "../generated/UniversalProfile/UniversalProfile";
+import { Data } from "../generated/schema";
 import { jsonType } from "./interfaces";
 
 async function fetchJson(dataValue: string) {

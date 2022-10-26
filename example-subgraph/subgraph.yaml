@@ -15,12 +15,12 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
+      file: ./src/mapping.ts
       entities:
-        - UP
+        - Data
       abis:
         - name: UniversalProfile
           file: ./abis/UniversalProfile.json
       eventHandlers:
-        - name: DataChanged(bytes32, bytes);
+        - event: DataChanged(indexed bytes32,bytes)
           handler: handleUpdatedUP
-      file: ./src/mapping.ts
