@@ -1,10 +1,10 @@
 <p align="center">
  <h2 align="center"><strong>The Graph</strong></h2>
- <p align="center">Extract event information ifrom ERC725 Account using The Graph</p>
+ <p align="center">Extract event information from [ERC725 Account](https://docs.lukso.tech/tools/erc725js/getting-started/) using The Graph</p>
 
 # Getting Started
 
-Read `Investigation.md` file in the `docs` folder to have more information on The Graph.R
+Read [`Investigation.md`](../docs/Investigation.md) file in the `docs` folder to have more information on The Graph.
 
 ## Installation
 
