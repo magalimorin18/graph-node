@@ -4,7 +4,7 @@
 
 # Getting Started
 
-Read [`Investigation.md`](../docs/Investigation.md) file in the `docs` folder to have more information on The Graph.
+Read [`Investigation.md`](./docs/Investigation.md) file in the `docs` folder to have more information on The Graph.
 
 ## Installation
 
