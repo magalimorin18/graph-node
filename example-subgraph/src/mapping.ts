@@ -1,49 +1,50 @@
-import utils from "web3-utils";
-import fetch from "node-fetch";
+import Web3 from "web3";
+import { ERC725, ERC725JSONSchema } from "@erc725/erc725.js";
 
 import { DataChanged } from "../generated/UniversalProfile/UniversalProfile";
 import { Data } from "../generated/schema";
-import { jsonType } from "./interfaces";
+import { dataUP } from "./interfaces";
 
-async function fetchJson(dataValue: string) {
-  const hashFunction = dataValue.slice(0, 10);
-  const hash = "0x" + dataValue.slice(0, 74); // TODO : use hash to verify the validity of the json
-  const hexURL = "0x" + dataValue.slice(74);
-  const utf8URL = utils.hexToUtf8(hexURL);
+const schema: ERC725JSONSchema[] = [
+  {
+    name: "LSP3Profile",
+    key: "0x5ef83ad9559033e6e941db7d7c495acdce616347d28e90c7ce47cbfcfcad3bc5",
+    keyType: "Singleton",
+    valueType: "bytes",
+    valueContent: "JSONURL",
+  },
+];
 
-  if (hashFunction === "0x6f357c6a") {
-    try {
-      const response = await fetch(`https://2eff.lukso.dev/ipfs/${utf8URL}`);
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log("Failed to load. Status: ", response.status);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
+const address = "0x86475811e711FbFe7765a51d7d44C02F0Fb71613";
+const provider = new Web3.providers.HttpProvider(
+  "https://rpc.l16.lukso.network"
+);
+const config = {
+  ipfsGateway: "https://2eff.lukso.dev/ipfs/",
+};
 
-export function handleUpdatedData(event: DataChanged): void {
-  const dataKey = event.params.key;
-  const dataValue = event.params.value;
-  const jsonFile: jsonType = fetchJson(dataValue);
+const erc725 = new ERC725(schema, address, provider, config);
 
-  const existingData = Data.load(dataKey);
+export async function handleUpdatedData(event: DataChanged): Promise<void> {
+  const dataKey = event.params.dataKey;
+  const id = dataKey.toString();
+  const jsonFile = await erc725.fetchData("LSP3Profile");
+  const incomingData: any = jsonFile.value;
+  // incoming data should be of type dataUP
+  // incoming data type is forced to any because erc725 library wrongly specifies the types of fethData function
+
+  const existingData = Data.load(id);
 
   if (existingData == null) {
-    const newData = new Data(dataKey);
-    newData.name = jsonFile.LSP3Profile.name;
-    newData.description = jsonFile.LSP3Profile.description;
-    newData.tags = jsonFile.LSP3Profile.tags;
-    newData.profileImage = jsonFile.LSP3Profile.profileImage;
+    const newData = new Data(id);
+    newData.name = incomingData.LSP3Profile.name;
+    newData.description = incomingData.LSP3Profile.description;
+    newData.tags = incomingData.LSP3Profile.tags;
     newData.save();
+  } else {
+    existingData.name = incomingData.LSP3Profile.name;
+    existingData.description = incomingData.LSP3Profile.description;
+    existingData.tags = incomingData.LSP3Profile.tags;
+    existingData.save();
   }
-
-  existingData.name = jsonFile.LSP3Profile.name;
-  existingData.description = jsonFile.LSP3Profile.description;
-  existingData.tags = jsonFile.LSP3Profile.tags;
-  existingData.profileImage = jsonFile.LSP3Profile.profileImage;
-  existingData.save();
 }
