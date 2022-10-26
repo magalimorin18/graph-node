@@ -1,6 +1,6 @@
 <p align="center">
  <h2 align="center"><strong>The Graph</strong></h2>
- <p align="center">Extract event information from [ERC725 Account](https://docs.lukso.tech/tools/erc725js/getting-started/) using The Graph</p>
+ <p align="center">Extract event information from <a href="https://docs.lukso.tech/tools/erc725js/getting-started/">ERC725 Account</a> using The Graph</p>
 
 # Getting Started
 
@@ -114,6 +114,6 @@ docker logs --follow CONTAINER
 
 ## Resources :
 
-<a href="https://medium.com/coinmonks/deploy-subgraphs-to-any-evm-aaaccc3559f"> deploy-subgraphs-to-any-evm</a>
+- <a href="https://medium.com/coinmonks/deploy-subgraphs-to-any-evm-aaaccc3559f">deploy-subgraphs-to-any-evm</a>
 
-<a href="https://docs.lukso.tech/tools/erc725js/classes/ERC725/#fetchdata"> fetchData</a>
+- <a href="https://docs.lukso.tech/tools/erc725js/classes/ERC725/#fetchdata">ERC725 fetchData function</a>
